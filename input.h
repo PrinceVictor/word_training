@@ -2,11 +2,14 @@
 #define INPUT_H
 
 #include <QWidget>
+#include "table.h"
+#include "ui_table.h"
 
 namespace Ui {
 class input;
 }
 class Word_training;
+
 class input : public QWidget
 {
     Q_OBJECT
@@ -14,6 +17,10 @@ class input : public QWidget
 public:
     explicit input(QWidget *parent = 0);
     ~input();
+
+private slots:
+
+    void on_pushButton_2_clicked();
 
 private:
     Ui::input *ui;

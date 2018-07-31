@@ -11,19 +11,13 @@ Word_training::Word_training(QWidget *parent) :
 {
     ui->setupUi(this);
     word_input = new input(this->centralWidget());
-    word_input->show();
+    word_input->hide();
     word_input->ui->word->setFocus();
 
     word_table = new table(this->centralWidget());
-    word_table->hide();
-
-    model = new QSqlTableModel(this);
-    model->setTable("word");
-    model->select();
-
-    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
-    word_table->ui->tableView->setModel(model);
-
+    word_table->model->setSort(4,Qt::DescendingOrder);
+    word_table->model->select();
+    word_table->show();
 }
 
 Word_training::~Word_training()
@@ -40,6 +34,73 @@ void Word_training::on_action_triggered()
 
 void Word_training::on_action_2_triggered()
 {
+
+    word_table->model->setTable("word");
+    word_table->model->select();
+    word_table->model->setHeaderData(2, Qt::Horizontal, tr("right rate %"));
+    word_table->model->setHeaderData(3, Qt::Horizontal, tr("wrong rate %"));
+    word_table->model->setHeaderData(4, Qt::Horizontal, tr("record date"));
+    word_table->model->setSort(4,Qt::DescendingOrder);
+    word_table->model->select();
     word_input->hide();
     word_table->show();
+
+}
+//appear times
+void Word_training::on_action_6_triggered()
+{
+    word_table->show();
+    static bool toggle_flag =false;
+    if(toggle_flag) {
+        word_table->model->setSort(6,Qt::AscendingOrder);
+    }
+    else
+        word_table->model->setSort(6,Qt::DescendingOrder);
+
+    word_table->model->select();
+    toggle_flag = !toggle_flag ;
+}
+
+//duration_days
+void Word_training::on_action_5_triggered()
+{
+    word_table->show();
+    static bool toggle_flag =false;
+    if(toggle_flag) {
+        word_table->model->setSort(5,Qt::AscendingOrder);
+    }
+    else
+        word_table->model->setSort(5,Qt::DescendingOrder);
+
+    word_table->model->select();
+    toggle_flag = !toggle_flag ;
+}
+
+//wrong rate
+void Word_training::on_action_3_triggered()
+{
+    word_table->show();
+    static bool toggle_flag =false;
+    if(toggle_flag) {
+        word_table->model->setSort(3,Qt::AscendingOrder);
+    }
+    else
+        word_table->model->setSort(3,Qt::DescendingOrder);
+
+    word_table->model->select();
+    toggle_flag = !toggle_flag ;
+}
+
+void Word_training::on_action_4_triggered()
+{
+    word_table->show();
+    static bool toggle_flag =false;
+    if(toggle_flag) {
+        word_table->model->setSort(2,Qt::AscendingOrder);
+    }
+    else
+        word_table->model->setSort(2,Qt::DescendingOrder);
+
+    word_table->model->select();
+    toggle_flag = !toggle_flag ;
 }

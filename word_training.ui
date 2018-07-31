@@ -33,6 +33,10 @@
    </attribute>
    <addaction name="action"/>
    <addaction name="action_2"/>
+   <addaction name="action_3"/>
+   <addaction name="action_4"/>
+   <addaction name="action_5"/>
+   <addaction name="action_6"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="action">
@@ -43,6 +47,26 @@
   <action name="action_2">
    <property name="text">
     <string>总榜</string>
+   </property>
+  </action>
+  <action name="action_3">
+   <property name="text">
+    <string>错误率榜</string>
+   </property>
+  </action>
+  <action name="action_4">
+   <property name="text">
+    <string>正确率榜</string>
+   </property>
+  </action>
+  <action name="action_5">
+   <property name="text">
+    <string>时间榜</string>
+   </property>
+  </action>
+  <action name="action_6">
+   <property name="text">
+    <string>出现次数榜</string>
    </property>
   </action>
  </widget>
