@@ -6,12 +6,13 @@
 #include <QMessageBox>
 #include<QDate>
 #include<string>
+#include<QShortcut>
 input::input(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::input)
 {
     ui->setupUi(this);
-
+    QObject::connect(ui->trans, SIGNAL(returnPressed()), this, SLOT(on_pushButton_2_clicked()) );
 }
 
 input::~input()
@@ -22,7 +23,9 @@ input::~input()
 void input::on_pushButton_2_clicked()
 {
     table word_table;
-//    word_table.on_motify_clicked();
+    if(ui->word->text().isEmpty()){
+        return ;
+    }
     int rowNum = word_table.model->rowCount();
     // 添加一行
     word_table.model->insertRow(rowNum);
@@ -33,6 +36,7 @@ void input::on_pushButton_2_clicked()
     word_table.model->setData(word_table.model->index(rowNum,4),QDate::currentDate().toString("yy-MM-dd"));
     word_table.model->setData(word_table.model->index(rowNum,5),1);
     word_table.model->setData(word_table.model->index(rowNum,6),1);
+
     word_table.model->database().transaction();
 
     if (word_table.model->submitAll()) {

@@ -7,6 +7,7 @@
 #include <QSqlDatabase>
 #include <QSqlRecord>
 #include <QDate>
+#include <QtCore/qmath.h>
 
 table::table(QWidget *parent) :
     QWidget(parent),
@@ -21,6 +22,7 @@ table::table(QWidget *parent) :
     model->setHeaderData(4, Qt::Horizontal, tr("record date"));
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     ui->tableView->setModel(model);
+    ui->tableView->hideColumn(7);
 
 }
 
@@ -65,11 +67,17 @@ void table::on_revert_2_clicked()
     model->select();
     for(int i =0; i< model->rowCount();i++){
         QSqlRecord record = model->record(i);
-        QDate begin_date =QDate::fromString( record.value("first_data").toString(),"yy-MM-dd").addYears(100);
+
+        QDate begin_date =QDate::fromString( record.value("record_date").toString(),"yy-MM-dd").addYears(100);
         QDate now_date = QDate::currentDate();
         int days = begin_date.daysTo(now_date)+1 ;
         model->setData(model->index(i,5),days);
+        model->setData(model->index(i,2), 100-record.value("wrong_rate").toInt());
+//update the appear weight
+        weight_update_once(i);
     }
+
+    model->database().transaction();
     if (model->submitAll()) {
         model->database().commit(); //提交
     } else {
@@ -79,4 +87,32 @@ void table::on_revert_2_clicked()
     }
     model->select();
 //    this->hide();
+}
+
+void table::weight_update(){
+
+    for(int i=0;i<model->rowCount();i++){
+        QSqlRecord record = model->record(i);
+        double weight = record.value("weight").toFloat();
+        int days = record.value("duration_days").toInt();
+        int wrong_rate = record.value("wrong_rate").toInt();
+        int appear_times = record.value("appear_times").toInt();
+
+        weight = wrong_rate/(1.84f/(1.25f*qLn(days)+1.84f))*(0.0044f*qPow(appear_times,2) - 0.8939f*appear_times +64.064f)/100.0f;
+        model->setData(model->index(i,7),weight);
+    }
+    model->submitAll();
+}
+
+void table::weight_update_once(int num){
+
+    QSqlRecord record = model->record(num);
+    double weight = record.value("weight").toFloat();
+    int days = record.value("duration_days").toInt();
+    int wrong_rate = record.value("wrong_rate").toInt();
+    int appear_times = record.value("appear_times").toInt();
+
+    weight = wrong_rate/(1.84f/(1.25f*qLn(days)+1.84f))*(0.0044f*qPow(appear_times,2) - 0.8939f*appear_times +64.064f)/100.0f;
+    model->setData(model->index(num,7),weight);
+    model->submitAll();
 }

@@ -27,15 +27,18 @@ SOURCES += \
         main.cpp \
         word_training.cpp \
     input.cpp \
-    table.cpp
+    table.cpp \
+    test.cpp
 
 HEADERS += \
         word_training.h \
     connection.h \
     input.h \
-    table.h
+    table.h \
+    test.h
 
 FORMS += \
         word_training.ui \
     input.ui \
-    table.ui
+    table.ui \
+    test.ui

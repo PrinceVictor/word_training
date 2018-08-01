@@ -27,7 +27,7 @@ static bool createConnection()
     query.exec("SET NAMES 'Latin1'");
 
     query.exec("create table word(word varchar(20), translation varchar(80), right_rate int, wrong_rate  int,"
-               "record_date varchar(20), duration_days int, appear_times int)");
+               "record_date varchar(20), duration_days int, appear_times int, weight double)");
 //    query.exec("insert into word values('ferry', '渡船，摆渡', '0/0', '0/0', '0', 0, 0)");
 
 

@@ -18,9 +18,9 @@ public:
     explicit input(QWidget *parent = 0);
     ~input();
 
+public slots:
+     void on_pushButton_2_clicked();
 private slots:
-
-    void on_pushButton_2_clicked();
 
 private:
     Ui::input *ui;

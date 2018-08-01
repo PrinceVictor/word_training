@@ -6,6 +6,8 @@
 #include "ui_input.h"
 #include "table.h"
 #include "ui_table.h"
+#include "test.h"
+#include "ui_test.h"
 
 class QSqlTableModel;
 
@@ -34,10 +36,15 @@ private slots:
 
     void on_action_4_triggered();
 
+    void on_action_7_triggered();
+
+    void on_action_8_triggered();
+
 private:
     Ui::Word_training *ui;
     input *word_input;
     table *word_table;
+    test *word_test;
 };
 
 #endif // WORD_TRAINING_H

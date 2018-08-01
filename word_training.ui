@@ -37,8 +37,9 @@
    <addaction name="action_4"/>
    <addaction name="action_5"/>
    <addaction name="action_6"/>
+   <addaction name="action_7"/>
+   <addaction name="action_8"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <action name="action">
    <property name="text">
     <string>单词输入</string>
@@ -67,6 +68,16 @@
   <action name="action_6">
    <property name="text">
     <string>出现次数榜</string>
+   </property>
+  </action>
+  <action name="action_7">
+   <property name="text">
+    <string>单词测试</string>
+   </property>
+  </action>
+  <action name="action_8">
+   <property name="text">
+    <string>翻译测试</string>
    </property>
   </action>
  </widget>
